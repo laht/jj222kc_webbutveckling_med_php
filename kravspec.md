@@ -12,7 +12,7 @@ Förkrav: Användaren är inloggad.
 3. Användaren väljer önskad bild.
 4. Systemet validerar formatet på bilden och meddelar användaren om uppladdningen lyckas/misslyckas.
 
-UC 2. Logga in
+**UC 2. Logga in
 Förkrav: 
 1. Startar när en användare vill logga in. 
 2. Systemet ber användaren om användarnamn och lösenord.
