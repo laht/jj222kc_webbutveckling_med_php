@@ -17,4 +17,11 @@ class View {
 		$footer = "";
 		return new \common\view\Page("Bildblogg - Utloggad", $header, $body, $footer);
 	}
+
+	public function getLoggedInPage() {
+		$header = $this->loginView->getLoggedInHeader();
+		$body = "";
+		$footer = "";
+		return new \common\view\Page("Bildblogg - Inloggad", $header, $body, $footer);
+	}
 }
