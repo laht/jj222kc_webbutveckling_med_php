@@ -12,4 +12,8 @@ class User {
 		$this->username = $username;
 		$this->password = $password;
 	}
+
+	public function encryptPassword() {
+		return md5($this->password);
+	}
 }

@@ -2,8 +2,8 @@
 
 namespace login\controller;
 
-require_once('login/model/LoginModel.php');
-require_once('common/model/User.php');
+include_once('login/model/LoginModel.php');
+include_once('common/model/User.php');
 
 class LoginController {
 	private $view;
@@ -30,12 +30,22 @@ class LoginController {
 			$this->view->logout();
 			$this->model->logout();
 		}
-		if ($this->view->userLoggingIn()) {
-			var_dump($_POST);
+		else if ($this->view->userCookies()) {
 			try {
-				$this->model->login($this->view->getUserLoginInput());	
+				$user = $this->view->getUserLoginInput();
+				$this->model->login($user);
+				$this->view->loginSuccess();
 			} catch (\Exception $e) {
-				$this->view->loginFail($e->getMessage());
+				$this->view->loginFail();
+			}
+		}
+		if ($this->view->userLoggingIn()) {
+			try {
+				$user = $this->view->getUserLoginInput();
+				$this->model->login($user);
+				$this->view->loginSuccess();
+			} catch (\Exception $e) {
+				$this->view->loginFail();
 			}			
 		}
 	}

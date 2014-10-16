@@ -12,7 +12,7 @@
 	bottom: 0;
 	width: inherit;
 }
-.logoutBtn {
+.logoutBtn, #registerBtn {
   font: bold 11px Arial;
   text-decoration: none;
   background-color: #EEEEEE;
@@ -22,4 +22,15 @@
   border-right: 1px solid #333333;
   border-bottom: 1px solid #333333;
   border-left: 1px solid #CCCCCC;
+}
+#posts {
+  padding: 20px;
+}
+#posts .img-thumb {
+  margin-top: 5px;
+  max-width: 300px;
+}
+.post {
+  float: left;
+  margin: 0 5px 5px 0;
 }

@@ -2,7 +2,7 @@
 
 namespace login\model;
 
-require_once("common/model/UserDAL.php");
+include_once("common/model/UserDAL.php");
 
 class LoginModel {
 
@@ -35,6 +35,14 @@ class LoginModel {
 		}
 	}
 
+	public function cookieExperation() {
+		return time() + 360;
+	}
+
+	public function hashPassword($password) {
+		return md5($password);
+	}
+
 	//Remove the user from the persistent logged in state
 	public function logout() {
 		$_SESSION = array();
@@ -47,20 +55,17 @@ class LoginModel {
 		}
 	}
 
+	//validate the users login data to allow login
 	private function validateUser(\common\model\User $user) {
+		//try to find the user that wants to login
 		$dbUser = $this->userDAL->findUser($user);
-
-		if ($user->username != $dbUser->username) {
+		//if no user is found throw exceptions everywhere
+		if (is_null($dbUser->username)) {
 			throw new \Exception("User does not exist");
 		}
+		//if the password does not match the username throw even more exceptions
 		if ($user->password != $dbUser->password) {
 			throw new \Exception("Password does not match user");
 		}
-		/*if ($user->username != "asd") {
-			throw new \Exception("Username does not exist");
-		}
-		if ($user->password != "123") {
-			throw new \Exception("Password does not match username");
-		}*/
 	}
 }

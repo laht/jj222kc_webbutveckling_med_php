@@ -1,7 +1,6 @@
 <?php
-
-require_once("common/view/View.php");
-require_once("base/controller/BaseController.php");
+include_once("common/view/View.php");
+include_once("base/controller/BaseController.php");
 
 session_start();
 
@@ -10,4 +9,3 @@ $view = new \common\view\View();
 
 $page = $app->runApp();
 echo $view->assemblePage($page);
-
