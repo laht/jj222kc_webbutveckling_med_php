@@ -2,7 +2,7 @@
 
 namespace login\model;
 
-include_once("common/model/UserDAL.php");
+require_once("common/model/UserDAL.php");
 
 class LoginModel {
 
@@ -34,6 +34,12 @@ class LoginModel {
 			return true;
 		}
 	}
+
+	public function getSessionUser() {
+		if (isset($_SESSION[self::$sessionUsername])) {
+			return $_SESSION[self::$sessionUsername];
+		}
+	} 
 
 	public function cookieExperation() {
 		return time() + 360;

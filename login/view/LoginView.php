@@ -2,7 +2,7 @@
 
 namespace login\view;
 
-include_once("common/model/User.php");
+require_once("common/model/User.php");
 
 class LoginView {
 

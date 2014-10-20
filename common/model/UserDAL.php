@@ -2,7 +2,7 @@
 
 namespace common\model;
 
-include_once("common/model/User.php");
+require_once("common/model/User.php");
 
 class UserDAL {
 
@@ -15,6 +15,10 @@ class UserDAL {
 	public function findUser(\common\model\User $user) {
 		return $this->getUser($user->username);
 	}
+
+    public function findUserById($id) {
+        return $this->getUserById($id);
+    }
 
     public function userExists(\common\model\User $user) {
         $dbUser = $this->getUser($user->username);
@@ -44,8 +48,30 @@ class UserDAL {
         }
     }
 
-	private function getUser($username) {
-        $sql = "SELECT username, password, pk FROM ".self::$tableName." WHERE username ='".$username."';";
+    private function getUserById($userId) {
+        $sql = "SELECT username, password, pk FROM ".self::$tableName." WHERE pk ='".$userId."';";
+        $statement = $this->mysqli->prepare($sql);
+
+        if ($statement === false) {         
+            throw new \Exception("Preparation of $sql statement failed");
+        }
+        if ($statement->execute() === false) {
+            throw new \Exception("Execution of $sql statement failed");
+        }       
+
+        $statement->bind_result($username, $password, $id); 
+        $statement->fetch();
+        $user = new \common\model\User($username, $password, $id);
+
+         if ($user->username == "" || $user->password == "") {
+            throw new \Exception("That user does not exist");
+        }
+
+        return $user;
+    }
+
+	private function getUser($userinput) {
+        $sql = "SELECT username, password, pk FROM ".self::$tableName." WHERE username ='".$userinput."';";
 
         $statement = $this->mysqli->prepare($sql);
         if ($statement === false) {        	
@@ -54,14 +80,10 @@ class UserDAL {
         if ($statement->execute() === false) {
             throw new \Exception("Execution of $sql statement failed");
         }
-        /*$result = $statement->get_result();
-        $object = $result->fetch_array(MYSQLI_ASSOC);        
-        $user = new \common\model\User($object["username"], $object["password"]);*/
 
         $statement->bind_result($username, $password, $id); 
         $statement->fetch();
         $user = new \common\model\User($username, $password, $id);
-        
         return $user;
     }
 }

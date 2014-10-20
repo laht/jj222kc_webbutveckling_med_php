@@ -8,7 +8,7 @@ class postsModel {
 
 	public $Title;
 
-	public $Text;
+	public $description;
 
 	public $imagePath;
 
@@ -16,10 +16,10 @@ class postsModel {
 	const postId = "postId";
 
 	//set membervariables
-	public function __construct($username, $postID, $postTitle, $postText, $imagePath) {
+	public function __construct($username, $postID, $postTitle, $description, $imagePath) {
 		$this->username = $username;
 		$this->Title = $postTitle;
-		$this->Text = $postText;
+		$this->description = $description;
 		$this->ID = $postID;
 		$this->imagePath = $imagePath;
 		$this->savePostId($this->ID);

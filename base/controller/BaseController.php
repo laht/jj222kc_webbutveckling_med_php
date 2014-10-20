@@ -2,42 +2,58 @@
 
 namespace base\controller;
 
-include_once('login/controller/LoginController.php');
-include_once('login/view/LoginView.php');
-include_once('login/model/LoginModel.php');
-include_once('posts/view/PostsView.php');
-include_once('base/view/View.php');
-include_once('posts/model/PostsDAL.php');
-include_once('common/model/BaseDAL.php');
-include_once('register/view/RegisterView.php');
-include_once('register/controller/RegisterController.php');
+require_once('login/controller/LoginController.php');
+require_once('login/view/LoginView.php');
+require_once('login/model/LoginModel.php');
+require_once('posts/view/PostsView.php');
+require_once('base/view/View.php');
+require_once('posts/model/PostsDAL.php');
+require_once('common/model/BaseDAL.php');
+require_once('register/view/RegisterView.php');
+require_once('register/controller/RegisterController.php');
+require_once('comments/view/CommentsView.php');
+require_once('comments/controller/CommentsController.php');
 
 class BaseController {
 	private $loginController;
 	private $registerController;
+	private $commentsController;
 	private $registerView;
+	private $postsView;
 	private $view;
 
 	public function __construct() {
 		$baseDAL = new \common\model\BaseDAL();
 		$loginModel = new \login\model\LoginModel($baseDAL);
 		$loginView = new \login\view\LoginView($loginModel);
-		$postsView = new \posts\view\PostsView($baseDAL);
+		$commentsView = new \comments\view\CommentsView($baseDAL);
+		$this->postsView = new \posts\view\PostsView($baseDAL);
 		$this->registerView = new \register\view\RegisterView();
 		$this->registerController = new \register\controller\RegisterController($this->registerView, $baseDAL);
 		$this->loginController = new \login\controller\LoginController($loginView, $baseDAL);
-		$this->view = new \base\view\View($loginView, $postsView, $this->registerView);		
+		$this->commentsController = new \comments\controller\CommentsController($commentsView, $baseDAL);
+		$this->view = new \base\view\View($loginView, $this->postsView, $this->registerView, $commentsView);
+		
 	}
 
 	public function runApp() {
 		$this->loginController->runLogin();
 		$this->registerController->runRegister();
+		$this->commentsController->runComments();
 
 		if ($this->loginController->userSession()) {
+			if ($this->postsView->showSingle()) {
+				$postId = $this->postsView->getpostId();
+				return $this->view->getSingleLoggedIn($postId);
+			}
 			return $this->view->getLoggedInPage();
 		}
 		else if ($this->registerView->userRegistrating()) {
 			return $this->view->getRegisterView();
+		}
+		else if ($this->postsView->showSingle()) {
+			$postId = $this->postsView->getpostId();
+			return $this->view->getSingleLoggedOut($postId);
 		}
 
 		return $this->view->getLoggedOutPage();

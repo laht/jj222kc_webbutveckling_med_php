@@ -2,7 +2,7 @@
 
 namespace register\controller;
 
-include_once('register\model\RegisterModel.php');
+require_once('register/model/RegisterModel.php');
 
 class RegisterController {
 

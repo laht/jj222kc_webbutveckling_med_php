@@ -2,8 +2,8 @@
 
 namespace login\controller;
 
-include_once('login/model/LoginModel.php');
-include_once('common/model/User.php');
+require_once('login/model/LoginModel.php');
+require_once('common/model/User.php');
 
 class LoginController {
 	private $view;
