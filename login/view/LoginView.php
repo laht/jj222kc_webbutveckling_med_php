@@ -28,7 +28,6 @@ class LoginView {
 	}
 
 	//Return html for the login form in the logged out state
-	//return html
 	public function getHTMLForm() {
 		$html =
 		"<div id='login_form'>
@@ -36,24 +35,28 @@ class LoginView {
 				<fieldset>
 					<p>$this->message</p>
 					<input id=".self::$USERID." placeholder='Användarnamn' name=".self::$USERNAME." />
-					<input id=".self::$PASSID." placeholder='Lösenord' type='password' name=".self::$PASSWORD." />
-					<input id=".self::$SUBMITID." type='submit' name=".self::$SUBMIT." value='Logga in' />					
+					<input id=".self::$PASSID." placeholder='Lösenord' type='password' name=".self::$PASSWORD." /> <br />
+					<input id=".self::$SUBMITID." type='submit' name=".self::$SUBMIT." value='Logga in' />
+					eller
+					<a id='registerBtn' href='?register'>Registrera</a>				
+					<label for=".self::$REMEMBER.">Kom ihåg mig</label>
 					<input id=".self::$REMEMBER." type='checkbox' name=".self::$REMEMBER." />
 				</fieldset>
 			</form>
-			<a id='registerBtn' href='?register'>Registrera</a>
+			
 		</div>";
 
 		return $html;
 	}
 
 	//Return html for the logged in state header
-	//return html
 	public function getLoggedInHeader() {
 		$html = 
-		"Logged in as ".$_SESSION['USERNAME']."
-			<a class='logoutBtn' href='?".self::$LOGOUT."'>Logout</a>
-		";
+			"<div id='loggedInHeader'>
+				Inloggad som ".$_SESSION['USERNAME']." <br />
+				<a class='logoutBtn' href='?".self::$LOGOUT."'>Logga ut</a>
+			</div>";
+
 		return $html;
 	}
 
@@ -64,26 +67,22 @@ class LoginView {
 
 	//the login was successful
 	public function loginSuccess() {
-		//get the users information
 		$username = $this->getUsername();
 		$password = $this->model->hashPassword($this->getPassword());
 		//and if the user wants to be saved
 		if ($this->rememberUser()) {
-			//set cookies for the username and password
 			setcookie(self::$USERNAME, $username, $this->model->cookieExperation());
 			setcookie(self::$PASSWORD, $password, $this->model->cookieExperation());
 		}
 	}
 
-	//set the expiration time of applications 
-	//cookies to -10 to remove them
+	//function to remove the users saved login data
 	private function removeCookies() {
 		setcookie(self::$USERNAME, "", time()-10);
 		setcookie(self::$PASSWORD, "", time()-10);
 	}
 
 	//Does the user want to log out?
-	//return bool
 	public function userLoggingOut() {
 		return isset($_GET[self::$LOGOUT]);
 	}
@@ -93,13 +92,11 @@ class LoginView {
 	}
 
 	//Does the user want to log in?
-	//return bool
 	public function userLoggingIn() {
 		return isset($_POST[self::$SUBMIT]);
 	}
 
 	//Fetch the username input by the user
-	//return string
 	private function getUsername() {
 		if (isset($_POST[self::$USERNAME])) {
 			return $_POST[self::$USERNAME];
@@ -107,7 +104,6 @@ class LoginView {
 	}
 
 	//Fetch the password input by the user
-	//return string
 	private function getPassword() {
 		if (isset($_POST[self::$PASSWORD])) {
 			return $_POST[self::$PASSWORD];
@@ -116,7 +112,6 @@ class LoginView {
 
 	//Return the input from the user as a \common\model\User object
 	public function getUserLoginInput() {
-		//does the user have any cookies from this application
 		if ($this->userCookies()) {
 			$username = $_COOKIE[self::$USERNAME];
 			$password = $_COOKIE[self::$PASSWORD];
@@ -129,8 +124,7 @@ class LoginView {
 		}
 	}
 
-	//if the user has any cookies from this application 
-	//return bool
+	//if the user has any cookies from this application
 	public function userCookies() {		
 		if (isset($_COOKIE[self::$USERNAME]) && isset($_COOKIE[self::$PASSWORD])) {
 			return true;
@@ -140,22 +134,16 @@ class LoginView {
 
 	//If the login should fail, asign a message for the user
 	public function loginFail() {
-		//if the user has any cookies available
 		if ($this->userCookies()) {
-			//there is something wrong with the cookies data
 			$this->message = "<p>Fel information i cookies</p>";
-			//remove the users cookies
 			$this->removeCookies();
 		} else {
-			//empty usernames are not allowed
 			if ($this->getUsername() == "") {
 				$this->message = "<p>Ange ett Användarnamn!</p>";
 			}
-			//empty passwords are not allowed 
 			else if ($this->getPassword() == "") {
 				$this->message = "<p>Ange ett Lösenord!</p>";
-			} 
-			//the username and password doesn't match
+			}
 			else {
 				$this->message = "<p>Fel Användarnamn eller Lösenord</p>";
 			}

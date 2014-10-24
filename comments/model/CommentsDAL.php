@@ -57,4 +57,33 @@ class CommentsDAL {
             throw new \Exception("Execution of $sql failed");
         }
 	}
+
+	public function deleteComment(\comments\model\CommentsModel $comment) {
+        $sql = "DELETE FROM ".self::$commentTable." WHERE pk = $comment->commentId";    
+        $statement = $this->mysqli->prepare($sql);
+        if ($statement === false) {
+            throw new \Exception("Preparation of $sql statement failed");
+        }
+        if ($statement->execute() === false) {
+            throw new \Exception("Execution of $sql failed");
+        }    
+    }
+
+    public function updateComment(\comments\model\CommentsModel $comment) {
+        $text = $comment->comment;        
+        if ($text == "") {
+            throw new \Exception("Input was empty");
+        }              
+        $sql = "UPDATE ".self::$commentTable." SET comment = ? WHERE pk = $comment->commentId";    
+        $statement = $this->mysqli->prepare($sql);      
+        if ($statement === false) {
+            throw new \Exception("Preparation of $sql statement failed");
+        }
+        if ($statement->bind_param("s" ,$text) === false) {
+            throw new \Exception("Binding of $sql failed");
+        }
+        if ($statement->execute() === false) {
+            throw new \Exception("Execution of $sql failed");
+        }    
+    }
 }

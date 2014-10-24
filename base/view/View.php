@@ -32,17 +32,19 @@ class View {
 	public function getSingleLoggedOut($id) {
 		$header = $this->loginView->getHTMLForm();
 		$body = $this->postView->getSingle($id);
+		$body .= $this->commentsView->getAllComments($id);
 		$footer = "";
 		return new \common\view\Page("Bildblogg - Utloggad", $header, $body, $footer);
 	}
 
 	public function getSingleLoggedIn($id) {
 		$header = $this->loginView->getLoggedInHeader();
+		$header .= $this->postView->getPostHeader();
 		$body = $this->postView->getSingle($id);
 		$body .= $this->commentsView->getAddComments();
 		$body .= $this->commentsView->getAllComments($id);
 		$footer = "";
-		return new \common\view\Page("Bildblogg - Utloggad", $header, $body, $footer);
+		return new \common\view\Page("Bildblogg - Inloggad", $header, $body, $footer);
 	}
 
 	public function getRegisterView() {
@@ -54,7 +56,16 @@ class View {
 
 	public function getLoggedInPage() {
 		$header = $this->loginView->getLoggedInHeader();
+		$header .= $this->postView->getPostHeader();
 		$body = $this->postView->getAllPosts();
+		$footer = "";
+		return new \common\view\Page("Bildblogg - Inloggad", $header, $body, $footer);
+	}
+
+	public function getAddingPostPage() {
+		$header = $this->loginView->getLoggedInHeader();
+		$header .= $this->postView->getPostHeader();
+		$body = $this->postView->getAddPost();
 		$footer = "";
 		return new \common\view\Page("Bildblogg - Inloggad", $header, $body, $footer);
 	}

@@ -1,30 +1,145 @@
+body {
+  background: #D3E7EA;
+}
 #main {
-	width: 100%;
+	width: 960px;
+  background: #fff;
+  margin: 0 auto;
+}
+#logo a {
+  margin-left: 10px;
+  float: left;
+  font-size: 45px;
+  font-family: 'tekton pro';
+  font-style: bold oblique;
+  color: #fff;
+  text-decoration: none;
+}
+#submitId {
+  background: 0;
+  border: 0;
+  margin-right: -7px;
+  text-decoration: underline;
+  color: #fff;
+}
+#posts .post-img {
+  overflow-y: hidden;
+  height: 200px;
 }
 #header {
-	background: #31A3D8;
+  padding: 15px;
+	background: #7FBDD2;
 	height: 100px;
 }
+#content {
+  padding: 10px;
+  font-family: verdana;
+  font-size: 12px;
+}
+#addCommentForm {
+  float: right;
+  width: 100px;
+  margin-right: 150px;
+  margin-bottom: 10px;
+}
+#addPostForm {
+  width: 100px;
+}
+#addPostForm form input {
+  margin-bottom: 5px;
+}
+#pagination a {
+  color: #6E8189;
+  text-decoration: underline;
+  font-family: arial;
+  font-size: 13px;
+  margin: 0 5px 0 5px;
+}
+#pagination {
+  display: table;
+  margin: 0 auto;
+}
+.commentData h3 {
+  font-size: 15px;
+  font-weight: bold;
+}
+.date {
+  font-style: italic;
+  font-size: 11px;
+}
+#usernameId, #passwordId {
+  height: 23px;
+  width: 175px;
+  border-radius: 7px;
+  padding: 5px;
+  border: 1px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+.PostText {
+  resize: none;
+}
+#post h2 {
+  font-size: 15px;
+}
+#post h3 {
+  margin-top: 5px;
+  font-size: 11px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+#menu {
+  margin-right: 10px;
+  margin-top: 10px;
+  float: right;
+}
+#uploadBtn {
+  font-size: 13px;
+  font-family: verdana;
+  text-decoration: underline;
+  margin-right: 10px;
+}
+#uploadBtn a {
+  color: #fff;
+}
+#login_form, #loggedInHeader {
+  float: right;
+}
+#loggedInHeader {
+  color: #fff;
+  font-family: arial;
+  font-size: 13px;
+}
+#login_form fieldset {
+  color: #D3E7EA;
+  font-family: arial;
+  font-size: 13px;
+}
+#login_form fieldset  {
+  color: #D3E7EA;
+}
+label {
+  color: #fff;
+  text-decoration: underline;
+  font-family: arial;
+  font-size: 13px;
+}
 #footer {
-	background: #237DA7;
-	height: 50px;	
-	position: absolute;
-	bottom: 0;
-	width: inherit;
+	background: #547C87;
+  padding: 20px;
+	height: 30px;
+  color: #fff;
+  font-family: verdana;
+  font-size: 13px;
 }
 .logoutBtn, #registerBtn {
-  font: bold 11px Arial;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
+  color: #fff;
+  text-decoration: underline;
+  font-family: arial;
+  font-size: 13px;
 }
-#posts {
-  padding: 20px;
+#posts, #post {
+  padding: 12px;
 }
 #posts .img-thumb {
   margin-top: 5px;
@@ -33,4 +148,7 @@
 .post {
   float: left;
   margin: 0 5px 5px 0;
+}
+.clearfix {
+  clear: both;
 }

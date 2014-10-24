@@ -58,10 +58,9 @@ class CommentsController {
 
 	private function updateComment() {
 		$currentUser = $this->loginModel->getSessionUser();
+		$dbUser = $this->userDAL->findUser(new \common\model\User($currentUser, ""));
+		$comment = $this->view->getUsersComment($dbUser);		
 
-		$dbUser = $this->userDAL->findUser($currentUser);
-
-		$comment = $this->view->getUsersComment($dbUser);				
 		try {
 			$this->commentDAL->updateComment($comment);
 		} catch (\Exception $e) {
@@ -72,7 +71,8 @@ class CommentsController {
 	private function deleteComment() {
 		$currentUser = $this->loginModel->getSessionUser();
 		$dbUser = $this->userDAL->findUser(new \common\model\User($currentUser, ""));
-		$comment = $this->view->getUsersComment($dbUser);				
+		$comment = $this->view->getUsersComment($dbUser);	
+					
 		try {
 			$this->commentDAL->deleteComment($comment);
 		} catch (\Exception $e) {

@@ -29,8 +29,14 @@ class CommentsView {
 	public function getUsersComment(\common\model\User $user) {
 		$userId = $user->id;
 		$text = strip_tags($this->getCommentText());
-		//$commentId = $this->getCommentId();
-		return new \comments\model\CommentsModel($text, $userId, "", $commentId='');
+		$commentId = $this->getCommentId();
+		return new \comments\model\CommentsModel($text, $userId, "", $commentId);
+	}
+
+	private function getCommentId() {
+		if (isset($_POST[self::$COMMENTID])) {
+			return $_POST[self::$COMMENTID];
+		}
 	}
 	
 	private function getCommentText() {
@@ -41,16 +47,17 @@ class CommentsView {
 
 	public function getAddComments() {
 		$html = 
-		"<div id='addPostForm'>
+		"<div id='addCommentForm'>
 			<form action='' method='post' enctype='multipart/form-data'>				
 				<fieldset>
 					<p>$this->message</p>
 					<textarea maxlength='255' class='PostText' 
 					 placeholder='Skriv en kommentar här' rows='4' cols='17' name='".self::$TEXT."'></textarea>
-					<input id='SubmitID' type='submit' value='Send' name='".self::$SUBMIT."' /> 
+					<input id='SubmitID' type='submit' value='Skicka' name='".self::$SUBMIT."' /> 
 				</fieldset>
 			</form>
-		</div>";
+		</div>
+		<div class='clearfix'></div>";
 		return $html;
 	}
 
@@ -63,7 +70,7 @@ class CommentsView {
 			$html .= "<div class='commentData'>";
 			$user =  $this->userDAL->findUserById($comment->commentOwner);
 			$html .= "<h3>By $user->username</h3>";
-			$html .= "<p>$comment->date</p>";
+			$html .= "<p class='date'>$comment->date</p>";
 			$html .= "<p>$comment->comment</p>";	
 			$html .= "</div>";		
 			if ($currentUser->id == $comment->commentOwner) {
@@ -82,11 +89,10 @@ class CommentsView {
 		$html = 
 		"<div class='updatePostForm'>
 			<form action='' method='post' enctype='multipart/form-data'>				
-				<fieldset>		
-					<legend>Update Comment</legend>
+				<fieldset>
 					<p>$this->message</p>					
 					<textarea maxlength='255' class='PostText' 
-					 placeholder='Post text' rows='4' cols='17' name='".self::$TEXT."' /></textarea>
+					 placeholder='Uppdatera kommentar' rows='4' cols='17' name='".self::$TEXT."' ></textarea>
 					<input id='SubmitID' type='submit' value='Update' name='".self::$UPDATE."' /> 
 					<input type='hidden' name='".self::$COMMENTID."' value='$commentId' />
 				</fieldset>

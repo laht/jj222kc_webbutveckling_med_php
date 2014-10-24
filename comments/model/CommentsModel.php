@@ -10,7 +10,7 @@ class CommentsModel {
 	public $postId;
 	public $commentId;
 
-	public function __construct($comment, $commentOwner, $date, $id) {
+	public function __construct($comment, $commentOwner, $date, $id='') {
 		$this->comment = $comment;
 		$this->commentOwner = $commentOwner;
 		$this->date = $date;

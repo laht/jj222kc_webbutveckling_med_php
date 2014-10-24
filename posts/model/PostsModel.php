@@ -30,7 +30,7 @@ class postsModel {
 		$_SESSION[self::postId] = $id;
 	}
 
-	public function validatePost(\posts\model\Post $post) {
+	public function validatePost(\posts\model\PostsModel $post) {
 		if ($post->Title == "") {
 			throw new \Exception("The post must have a title, none given");
 		}

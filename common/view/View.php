@@ -10,7 +10,8 @@ class View {
 		$body = $page->body;
 		$footer = $page->footer;
 
-		$html = "<!DOCTYPE html>
+		$html = 
+		"<!DOCTYPE html>
 		    <head>
 		        <meta charset='utf-8'>
 		        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -23,13 +24,17 @@ class View {
 		    <body>
 		    	<div id='main'>
 		    		<div id='header'>
-		    			$header		    			
+		    			<h1 id='logo'><a href='http://www.laht.eu5.org/'>Bildblogg</a></h1>
+		    			<div id='menu'>
+		    				$header
+		    			</div>
 		    		</div>
 		    		<div id='content'>
-		    			$body	    			
+		    			$body
 		    		</div>
 		    		<div id='footer'>
 		    			$footer
+		    			© Joakim Jonsson 2014
 		    		</div>
 		    	</div>
 		    </body>
