@@ -48,12 +48,15 @@ Förkrav:
 4. Systemet validerar användaren och lösenord och meddelar om registreringen lyckades/misslyckades.
 
 
-Krav 2. Logga in Casual
+Krav 1. Logga in Casual
 Användaren väljer att han/hon vill logga in och får ett inloggningsformulär presenterat 
 där användaren sedan fyller i sina användardata(användarnamn/lösenord). Systemet bearbetar informationen och talar
 sedan om för användaren om det är giltliga data. Om valideringen misslyckas så presenteras ett 
 felmeddelande som talar om vad som är fel.
 
 
-Krav 3. Kommentera Brief
+Krav 2. Kommentera Brief
 Användaren fyller i kommentarsfältet på ett inlägg för att sedan bli presenterat med den inlagda kommentaren.
+
+Krav 3. Paginering brief
+Om antalet poster överskrider 12 stycken så ska de överflödiga posterna placeras på en separat sida.
