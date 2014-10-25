@@ -3,7 +3,7 @@ webbutveckling med php
 Projektkrav:
 
 UC 1 Ladda upp bild
-Förkrav: Användaren är inloggad.
+Förkrav: Användaren är inloggad.  
 1. Startar när en användare valt att ladda upp en bild.
 2. Systemet ber användaren ange vilken bild som ska laddas upp.
 3. Användaren väljer önskad bild.
