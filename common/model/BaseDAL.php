@@ -9,7 +9,7 @@ class BaseDAL {
 	public $mysqli;
 
  	public function __construct() { 		
- 		$this->mysqli = new \mysqli("localhost", "467985", "sonickkk123", "467985");
+ 		$this->mysqli = new \mysqli("host", "username", "password", "databasename");
  		$this->mysqli->set_charset('utf8');
  	}
 }
