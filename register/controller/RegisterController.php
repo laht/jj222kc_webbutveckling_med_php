@@ -24,6 +24,7 @@ class RegisterController {
 				$user = $this->view->getUserData();
 				//add the user to the database
 				$this->model->register($user);
+				$this->view->registerSuccess();
 			} catch (\Exception $e) {
 				$this->view->registrationFailed();
 			}

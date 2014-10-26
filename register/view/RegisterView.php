@@ -32,6 +32,10 @@ class RegisterView {
 		return false;
 	}
 
+	public function registerSuccess() {
+		$this->message = "Registreringen lyckades, du kan nu logga in!";
+	}
+
 	//if the ragistration failed show the appropriate message for the user
 	public function registrationFailed() {
 		$username = $this->getUsername();

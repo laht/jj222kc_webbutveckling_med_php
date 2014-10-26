@@ -57,7 +57,7 @@ class View {
 
 	//return the registration view
 	public function getRegisterView() {
-		$header = "";
+		$header = $this->loginView->getHTMLForm();
 		$body = $this->registerView->getHTMLForm();
 		$footer = "";
 		return new \common\view\Page("Bildblogg - registrera användare", $header, $body, $footer);
