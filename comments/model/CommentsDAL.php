@@ -6,14 +6,17 @@ require_once("comments/model/CommentsModel.php");
 
 class CommentsDAL {
 
+    //database table for comments
 	private static $commentTable = 'comments';
-
+    //mysqli connection to the database
 	private $mysqli;
 
+    //initiate the mysqli connection
 	public function __construct(\common\model\BaseDAL $baseDAL) {
 		$this->mysqli = $baseDAL->mysqli;
 	}
 
+    //fetch all comments that belongs the selected post from the database
 	public function getAllComments($postId) {
 		$comments = array();
         $sql = "SELECT pk, comment, commenterId, ownerId, Date 
@@ -35,6 +38,7 @@ class CommentsDAL {
         return array_reverse($comments);
 	}
 
+    //add the users comment to the database
 	public function addComment(\comments\model\CommentsModel $comment) {
 		$text = $comment->comment;
 		$userId = $comment->commentOwner;
@@ -58,6 +62,7 @@ class CommentsDAL {
         }
 	}
 
+    //delete the users selected comment
 	public function deleteComment(\comments\model\CommentsModel $comment) {
         $sql = "DELETE FROM ".self::$commentTable." WHERE pk = $comment->commentId";    
         $statement = $this->mysqli->prepare($sql);
@@ -69,6 +74,7 @@ class CommentsDAL {
         }    
     }
 
+    //update the users selected comment
     public function updateComment(\comments\model\CommentsModel $comment) {
         $text = $comment->comment;        
         if ($text == "") {

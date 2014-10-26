@@ -4,6 +4,7 @@ namespace common\view;
 
 class View {
 
+	//returns the html template that represents the webpage shown to the user
 	public function assemblePage(\common\view\Page $page) {
 		$title = $page->title;
 		$header = $page->header;

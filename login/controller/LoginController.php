@@ -6,15 +6,18 @@ require_once('login/model/LoginModel.php');
 require_once('common/model/User.php');
 
 class LoginController {
+	//member variables for dependencies
 	private $view;
 	private $loginController;
 	private $model;
 
+	//initiate member variables
 	public function __construct(\login\view\LoginView $view, \common\model\BaseDAL $baseDAL) {
 		$this->view = $view;
 		$this->model = new \login\model\LoginModel($baseDAL);
 	}
 
+	//does the user have a valid session?
 	public function userSession() {
 		if ($this->model->isSessionSet()) {
 			if ($this->model->validateSession()) {

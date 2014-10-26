@@ -2,6 +2,7 @@
 
 namespace comments\model;
 
+//class to represent a comment object
 class CommentsModel {
 
 	public $date;
@@ -18,6 +19,7 @@ class CommentsModel {
 		$this->setPostId();
 	}
 
+	//save the posts id to the session
 	private function setPostId() {
 		if (isset($_SESSION[\posts\model\PostsModel::postId])) {
 			$this->postId = $_SESSION[\posts\model\PostsModel::postId];

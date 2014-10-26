@@ -15,6 +15,7 @@ class PostsDAL {
 		$this->mysqli = $baseDAL->mysqli;
 	}
 
+    //returns the number of rows currently in the posts table in the database
     public function getNumberOfRows() {
        $posts = array();
        $sql = "SELECT users.username, posts.postTitle, posts.pk, posts.description, posts.image
@@ -38,6 +39,7 @@ class PostsDAL {
         return count($posts);
     }
 
+    //add the eneterd post into the database
     public function addPost(\posts\model\PostsModel $post, \posts\model\ImageModel $image) {
         $ownerId = $post->ID;
         $title = $post->Title;
@@ -65,6 +67,7 @@ class PostsDAL {
         }
     }
 
+    //fetch a single post form the database
     public function getSinglePost($postId) {
         $sql = "SELECT users.username, posts.postTitle, posts.pk, posts.description, posts.image
                 FROM ".self::$usersTable."
@@ -87,6 +90,7 @@ class PostsDAL {
         return $post;
     }
 
+    //fetch every post from the database
 	public function getAllPosts($start, $end) {
 		$posts = array();
 		$sql = "SELECT users.username, posts.postTitle, posts.pk, posts.description, posts.image

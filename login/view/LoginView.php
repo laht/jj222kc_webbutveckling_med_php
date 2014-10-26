@@ -17,7 +17,7 @@ class LoginView {
 	private static $REMEMBER = 'remember';
 	private static $REGISTER = 'register';
 
-	//string message for the user
+	//message for the user
 	public $message;
 
 	// \login\model\LoginModel
@@ -27,7 +27,7 @@ class LoginView {
 		$this->model = $loginModel;
 	}
 
-	//Return html for the login form in the logged out state
+	//return html for the login form in the logged out state
 	public function getHTMLForm() {
 		$html =
 		"<div id='login_form'>
@@ -49,7 +49,7 @@ class LoginView {
 		return $html;
 	}
 
-	//Return html for the logged in state header
+	//return html for the logged in state header
 	public function getLoggedInHeader() {
 		$html = 
 			"<div id='loggedInHeader'>
@@ -60,7 +60,7 @@ class LoginView {
 		return $html;
 	}
 
-	//Remove the user from the persistent logged in state
+	//remove the user from the persistent logged in state
 	public function logout() {
 		$this->removeCookies();
 	}
@@ -82,7 +82,7 @@ class LoginView {
 		setcookie(self::$PASSWORD, "", time()-10);
 	}
 
-	//Does the user want to log out?
+	//does the user want to log out?
 	public function userLoggingOut() {
 		return isset($_GET[self::$LOGOUT]);
 	}
@@ -91,26 +91,26 @@ class LoginView {
 		return isset($_POST[self::$REMEMBER]);
 	}
 
-	//Does the user want to log in?
+	//does the user want to log in?
 	public function userLoggingIn() {
 		return isset($_POST[self::$SUBMIT]);
 	}
 
-	//Fetch the username input by the user
+	//fetch the username input by the user
 	private function getUsername() {
 		if (isset($_POST[self::$USERNAME])) {
 			return $_POST[self::$USERNAME];
 		}
 	}
 
-	//Fetch the password input by the user
+	//fetch the password input by the user
 	private function getPassword() {
 		if (isset($_POST[self::$PASSWORD])) {
 			return $_POST[self::$PASSWORD];
 		}
 	}
 
-	//Return the input from the user as a \common\model\User object
+	//return the input from the user as a \common\model\User object
 	public function getUserLoginInput() {
 		if ($this->userCookies()) {
 			$username = $_COOKIE[self::$USERNAME];
@@ -124,7 +124,7 @@ class LoginView {
 		}
 	}
 
-	//if the user has any cookies from this application
+	//return if the user has any cookies from this application
 	public function userCookies() {		
 		if (isset($_COOKIE[self::$USERNAME]) && isset($_COOKIE[self::$PASSWORD])) {
 			return true;
@@ -132,7 +132,7 @@ class LoginView {
 		return false;
 	}
 
-	//If the login should fail, asign a message for the user
+	//if the login should fail, asign a message for the user
 	public function loginFail() {
 		if ($this->userCookies()) {
 			$this->message = "<p>Fel information i cookies</p>";

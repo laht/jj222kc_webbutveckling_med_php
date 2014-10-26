@@ -6,7 +6,7 @@ require_once("comments/model/CommentsDAL.php");
 
 class CommentsView {
 
-	//add some static variables for such and such
+	//add some static variables for html and global variables
 	private static $COMMENTING = "comment";
 	private static $TEXT = 'CommentView::Text';
 	private static $SUBMIT = "AddComment";
@@ -14,18 +14,22 @@ class CommentsView {
 	private static $DELETE = "DeleteComment";
 	private static $COMMENTID = "CommentId";
 
+	//member variables for dependencies
 	private $commentDAL;
 	private $userDAL;
 	private $loginModel;
 
+	//message for the user
 	private $message;
 
+	//initiate member variables
 	public function __construct(\common\model\baseDAL $baseDAL) {
 		$this->commentDAL = new \comments\model\CommentsDAL($baseDAL);
 		$this->userDAL = new \common\model\UserDAL($baseDAL);
 		$this->loginModel = new \login\model\LoginModel($baseDAL);
 	}
 
+	//fetch the users posted comment
 	public function getUsersComment(\common\model\User $user) {
 		$userId = $user->id;
 		$text = strip_tags($this->getCommentText());
@@ -33,18 +37,21 @@ class CommentsView {
 		return new \comments\model\CommentsModel($text, $userId, "", $commentId);
 	}
 
+	//return the comments id 
 	private function getCommentId() {
 		if (isset($_POST[self::$COMMENTID])) {
 			return $_POST[self::$COMMENTID];
 		}
 	}
 	
+	//return the comments text
 	private function getCommentText() {
 		if (isset($_POST[self::$TEXT])) {
 			return $_POST[self::$TEXT];
 		}
 	}
 
+	//return the html for the adding comment form
 	public function getAddComments() {
 		$html = 
 		"<div id='addCommentForm'>
@@ -61,6 +68,7 @@ class CommentsView {
 		return $html;
 	}
 
+	//return html for all comments for the selected post
 	public function getAllComments($postId) {
 		$comments = $this->commentDAL->getAllComments($postId);
 		$html = "<div id='comments'>";		
@@ -81,10 +89,10 @@ class CommentsView {
 			$html .= "</div>";
 		}
 		$html .= "</div>";
-
 		return $html; 
 	}
 
+	//return the html for the update comment form
 	private function getUpdateComment($commentId) {
 		$html = 
 		"<div class='updatePostForm'>
@@ -101,6 +109,7 @@ class CommentsView {
 		return $html;
 	}
 
+	//return the html for the delete comment form
 	private function getDeleteComment($commentId) {
 		$html = 
 		"<div class='deletePostForm'>
@@ -114,14 +123,17 @@ class CommentsView {
 		return $html;
 	}
 
+	//return if user is commenting
 	public function userCommenting() {
 		return isset($_POST[self::$SUBMIT]);
 	}
 
+	//return if user is updating comment
 	public function userUpdatingComment() {
 		return isset($_POST[self::$UPDATE]);
 	}
 
+	//return if user is deleting comment
 	public function userDeletingComment() {
 		return isset($_POST[self::$DELETE]);
 	}

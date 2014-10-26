@@ -2,20 +2,18 @@
 
 namespace posts\model;
 
+//class that represents a post
 class postsModel {
 
 	public $username;
-
 	public $Title;
-
 	public $description;
-
 	public $imagePath;
 
 	public $ID;
 	const postId = "postId";
 
-	//set membervariables
+	//set class properties
 	public function __construct($username, $postID, $postTitle, $description, $imagePath) {
 		$this->username = $username;
 		$this->Title = $postTitle;

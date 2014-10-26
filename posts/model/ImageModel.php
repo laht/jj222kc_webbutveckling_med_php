@@ -2,6 +2,7 @@
 
 namespace posts\model;
 
+//class to save images to the server
 class ImageModel {
 
 	const maxWidth = 500;
@@ -60,6 +61,7 @@ class ImageModel {
 
 	//set the rights on the uploads folder 
 	//and then upload the image and reset the rights
+	//and the login information should not be stored in git
 	public function saveImage() {
 		$ftp_server = "eu5.org";
 		$ftp_conn = ftp_connect($ftp_server) or die("couldn't connect");

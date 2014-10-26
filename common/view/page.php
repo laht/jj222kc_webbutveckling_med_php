@@ -1,7 +1,8 @@
 <?php
 
 namespace common\view;
-
+	
+//class to represent the Page object used to build webpages
 class Page {
 
 	public $title = "";

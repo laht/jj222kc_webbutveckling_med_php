@@ -7,6 +7,10 @@ class RegisterModel {
 	const minUsernameLength = 3;
 	const minPasswordLength = 3;
 
+	//user access object for the database
+	private $userDAL;
+
+	//initiate the userDAL member variable
 	public function __construct(\common\model\BaseDAL $baseDAL) {
 		$this->userDAL = new \common\model\UserDAL($baseDAL);
 	}
@@ -17,6 +21,7 @@ class RegisterModel {
 		$this->userDAL->addUser($user);
 	}
 
+	//validate the users input
 	public function validateUser(\common\model\User $user) {
 		$username = $user->username;
 		$password = $user->password;

@@ -10,13 +10,10 @@ require_once("login/model/LoginModel.php");
 
 class CommentsController {
 
-	// \comments\view\CommentsView
+	//member variables for dependencies
 	private $view;
-	// \login\model\LoginModel
 	private $loginModel;
-	// \comments\model\CommentsDAL
 	private $commentDAL;
-	// \common\model\UserDAL
 	private $userDAL;
 
 	//initiate member variables
@@ -43,7 +40,7 @@ class CommentsController {
 		}
 	}
 
-	//
+	//add the users comment to the database
 	private function addComment() {
 		$currentUser = new \common\model\User($this->loginModel->getSessionUser(), "");
 		$dbUser = $this->userDAL->findUser($currentUser);
@@ -56,27 +53,21 @@ class CommentsController {
 		}
 	}
 
+	//update the users selected comment 
 	private function updateComment() {
 		$currentUser = $this->loginModel->getSessionUser();
 		$dbUser = $this->userDAL->findUser(new \common\model\User($currentUser, ""));
 		$comment = $this->view->getUsersComment($dbUser);		
 
-		try {
-			$this->commentDAL->updateComment($comment);
-		} catch (\Exception $e) {
-			//something unexpected happened
-		}	
+		$this->commentDAL->updateComment($comment);
 	}
 
+	//delete the users selected comment
 	private function deleteComment() {
 		$currentUser = $this->loginModel->getSessionUser();
 		$dbUser = $this->userDAL->findUser(new \common\model\User($currentUser, ""));
 		$comment = $this->view->getUsersComment($dbUser);	
 					
-		try {
-			$this->commentDAL->deleteComment($comment);
-		} catch (\Exception $e) {
-			//something unexpected happened
-		}	
+		$this->commentDAL->deleteComment($comment);	
 	}
 }
