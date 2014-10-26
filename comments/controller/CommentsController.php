@@ -59,7 +59,12 @@ class CommentsController {
 		$dbUser = $this->userDAL->findUser(new \common\model\User($currentUser, ""));
 		$comment = $this->view->getUsersComment($dbUser);		
 
-		$this->commentDAL->updateComment($comment);
+		try {
+			$this->commentDAL->updateComment($comment);	
+		} catch (\Exception $e) {
+			$this->view->commentFailed();
+		}
+		
 	}
 
 	//delete the users selected comment
@@ -67,7 +72,11 @@ class CommentsController {
 		$currentUser = $this->loginModel->getSessionUser();
 		$dbUser = $this->userDAL->findUser(new \common\model\User($currentUser, ""));
 		$comment = $this->view->getUsersComment($dbUser);	
-					
-		$this->commentDAL->deleteComment($comment);	
+		try {
+			$this->commentDAL->deleteComment($comment);	
+		} catch (\Exception $e) {
+			$this->view->commentFailed();
+		}
+		
 	}
 }

@@ -20,7 +20,8 @@ class CommentsView {
 	private $loginModel;
 
 	//message for the user
-	private $message;
+	private $addMessage;
+	private $updateMessage;
 
 	//initiate member variables
 	public function __construct(\common\model\baseDAL $baseDAL) {
@@ -57,7 +58,7 @@ class CommentsView {
 		"<div id='addCommentForm'>
 			<form action='' method='post' enctype='multipart/form-data'>				
 				<fieldset>
-					<p>$this->message</p>
+					<p>$this->addMessage</p>
 					<textarea maxlength='255' class='PostText' 
 					 placeholder='Skriv en kommentar här' rows='4' cols='17' name='".self::$TEXT."'></textarea>
 					<input id='SubmitID' type='submit' value='Skicka' name='".self::$SUBMIT."' /> 
@@ -66,6 +67,18 @@ class CommentsView {
 		</div>
 		<div class='clearfix'></div>";
 		return $html;
+	}
+
+	public function commentFailed() {
+		if ($this->userCommenting()) {
+			$this->addMessage = "Du måste ange en kommentar!";	
+		}
+		else if ($this->userUpdatingComment()) {
+			$this->updateMessage = "Du måste ange en kommentar!";		
+		}
+		else if ($this->userDeletingComment()) {
+			$this->updateMessage = "Något oväntat hände!";
+		}
 	}
 
 	//return html for all comments for the selected post
@@ -98,7 +111,7 @@ class CommentsView {
 		"<div class='updatePostForm'>
 			<form action='' method='post' enctype='multipart/form-data'>				
 				<fieldset>
-					<p>$this->message</p>					
+					<p>$this->updateMessage</p>					
 					<textarea maxlength='255' class='PostText' 
 					 placeholder='Uppdatera kommentar' rows='4' cols='17' name='".self::$TEXT."' ></textarea>
 					<input id='SubmitID' type='submit' value='Update' name='".self::$UPDATE."' /> 
